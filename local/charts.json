@@ -1,0 +1,27 @@
+[
+    {
+        "Title": "30-Day Moving Average",
+        "SQL": "SELECT DATA_DATE, AVG(VALUE) OVER (ORDER BY DATA_DATE ASC ROWS BETWEEN 29 PRECEDING AND CURRENT ROW) AS MOVING_AVERAGE_30 FROM STOCK_DATA",
+        "Description": "This query calculates the 30-day moving average of the S&P 500, smoothing out short-term volatility and highlighting longer-term trends."
+    },
+    {
+        "Title": "Year-Over-Year Growth",
+        "SQL": "SELECT DATA_DATE, VALUE, LAG(VALUE, 365) OVER (ORDER BY DATA_DATE) AS LAST_YEAR_VALUE, (VALUE - LAG(VALUE, 365) OVER (ORDER BY DATA_DATE)) * 100.0 / LAG(VALUE, 365) OVER (ORDER BY DATA_DATE) AS YOY_GROWTH FROM STOCK_DATA",
+        "Description": "This query calculates the year-over-year growth percentage, showing how the current value compares to the same date in the previous year."
+    },
+    {
+        "Title": "Rolling 90-Day Volatility",
+        "SQL": "SELECT DATA_DATE, STDDEV(VALUE) OVER (ORDER BY DATA_DATE ASC ROWS BETWEEN 89 PRECEDING AND CURRENT ROW) AS ROLLING_VOLATILITY_90 FROM STOCK_DATA",
+        "Description": "This query calculates the rolling 90-day standard deviation of the S&P 500, providing insights into market volatility over time. Higher values indicate greater price fluctuations within the 90-day window."
+    },
+    {
+        "Title": "5-Day Moving Average vs. Actual Value",
+        "SQL": "SELECT DATA_DATE, VALUE, AVG(VALUE) OVER (ORDER BY DATA_DATE ASC ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) AS MOVING_AVERAGE_5 FROM STOCK_DATA",
+        "Description": "This query calculates the 5-day moving average alongside the actual daily value, allowing for a direct comparison between short-term trends and daily fluctuations."
+    },
+    {
+        "Title": "12-Month Rolling Maximum and Minimum",
+        "SQL": "SELECT DATA_DATE, VALUE, MAX(VALUE) OVER (ORDER BY DATA_DATE ASC ROWS BETWEEN 364 PRECEDING AND CURRENT ROW) AS ROLLING_MAX_12M, MIN(VALUE) OVER (ORDER BY DATA_DATE ASC ROWS BETWEEN 364 PRECEDING AND CURRENT ROW) AS ROLLING_MIN_12M FROM STOCK_DATA",
+        "Description": "This query calculates the rolling 12-month maximum and minimum values, highlighting the highest and lowest points reached within a year's timeframe. This can help in understanding the range of market fluctuations over a longer period."
+    }
+]

@@ -1,0 +1,27 @@
+[
+    {
+        "title": "30-Day Moving Average",
+        "description": "This query calculates the 30-day moving average of the S&P 500, smoothing out short-term volatility and highlighting longer-term trends.",
+        "chart_url": "https://sfopenaccessbucket.s3.us-east-1.amazonaws.com/charts/ca541596-e474-400c-8423-c155cd5bcd2a.png"
+    },
+    {
+        "title": "Year-Over-Year Growth",
+        "description": "This query calculates the year-over-year growth percentage, showing how the current value compares to the same date in the previous year.",
+        "chart_url": "https://sfopenaccessbucket.s3.us-east-1.amazonaws.com/charts/60423c85-4927-4d6f-a05f-8b59d970c608.png"
+    },
+    {
+        "title": "Rolling 90-Day Volatility",
+        "description": "This query calculates the rolling 90-day standard deviation of the S&P 500, providing insights into market volatility over time. Higher values indicate greater price fluctuations within the 90-day window.",
+        "chart_url": "https://sfopenaccessbucket.s3.us-east-1.amazonaws.com/charts/90915211-fc8f-4adb-804d-38352f139792.png"
+    },
+    {
+        "title": "5-Day Moving Average vs. Actual Value",
+        "description": "This query calculates the 5-day moving average alongside the actual daily value, allowing for a direct comparison between short-term trends and daily fluctuations.",
+        "chart_url": "https://sfopenaccessbucket.s3.us-east-1.amazonaws.com/charts/8cc77889-7a50-4096-bd0d-1577a3dbfbca.png"
+    },
+    {
+        "title": "12-Month Rolling Maximum and Minimum",
+        "description": "This query calculates the rolling 12-month maximum and minimum values, highlighting the highest and lowest points reached within a year's timeframe. This can help in understanding the range of market fluctuations over a longer period.",
+        "chart_url": "https://sfopenaccessbucket.s3.us-east-1.amazonaws.com/charts/1d9660fd-90b9-4d19-a358-422abaf25d9f.png"
+    }
+]

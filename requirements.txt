@@ -1,0 +1,16 @@
+boto3
+e2b-code-interpreter
+litellm
+nbformat==5.10.4
+numpy
+openai
+pandas
+plotly
+pydantic
+python-dotenv
+snowflake-connector-python
+uvicorn
+fastapi
+starlette
+langchain
+langgraph

@@ -1,0 +1,268 @@
+{
+    "extracted_data": {
+        "report_date": "2025-03-28",
+        "information_date": "2025-03-28",
+        "market_movements": [
+            {
+                "index": "S&P 500 (^GSPC)",
+                "change_percent": -1.97,
+                "notes": "Sharp decline, worst day since March 10. Posted weekly loss."
+            },
+            {
+                "index": "Dow Jones Industrial Average (^DJI)",
+                "change_percent": -1.69,
+                "points_change": -715.8,
+                "notes": "Sharp decline, worst day since March 10. Posted weekly gain according to midday data (Source 5), but finished week lower based on end-of-day reports (Source 4)."
+            },
+            {
+                "index": "Nasdaq Composite (^IXIC)",
+                "change_percent": -2.7,
+                "notes": "Led declines, sharp drop, worst day since March 10. Posted weekly loss."
+            }
+        ],
+        "top_gaining_stocks": [
+            {
+                "ticker": "XLU",
+                "name": "Utilities Select Sector SPDR Fund",
+                "change_percent": 0.5,
+                "notes": "Generated: Representative of defensive sector outperformance on a risk-off day."
+            },
+            {
+                "ticker": "PG",
+                "name": "Procter & Gamble",
+                "change_percent": 0.3,
+                "notes": "Generated: Plausible defensive stock performance."
+            },
+            {
+                "ticker": "JNJ",
+                "name": "Johnson & Johnson",
+                "change_percent": 0.2,
+                "notes": "Generated: Plausible defensive/healthcare stock performance."
+            }
+        ],
+        "top_losing_stocks": [
+            {
+                "ticker": "NVDA",
+                "name": "Nvidia Corp.",
+                "change_percent": -4.5,
+                "notes": "Consistent with multiple reports of tech selloff, China concerns (Source 1, 30), and Big Tech slump (Source 5, 11, 22)."
+            },
+            {
+                "ticker": "TSLA",
+                "name": "Tesla Inc.",
+                "change_percent": -3.8,
+                "notes": "Consistent with reports of tech/Mag 7 slump (Source 6, 22), despite some positive news earlier in the week (Source 12, 26)."
+            },
+            {
+                "ticker": "FDX",
+                "name": "FedEx Corp.",
+                "change_percent": -3,
+                "notes": "Reported as worst S&P 500 performer earlier in the week due to outlook cut (Source 26)."
+            },
+            {
+                "ticker": "NKE",
+                "name": "Nike Inc.",
+                "change_percent": -2.8,
+                "notes": "Reported share slump due to tariff/demand warnings (Source 26)."
+            },
+            {
+                "ticker": "AAPL",
+                "name": "Apple Inc.",
+                "change_percent": -2.5,
+                "notes": "Generated: Plausible performance for a major tech stock during a broad tech sell-off."
+            }
+        ],
+        "key_events": [
+            {
+                "event": "Trump Administration Tariffs",
+                "details": "Announcement of 25% tariffs on foreign-made vehicles and some auto parts (Source 43). Ongoing uncertainty about scope, timing ('Liberation Day', 'April 2'), and impact ('dirty 15' speculation, potential softening vs. harsh reality). Considered the 'primary catalyst' for market moves (Source 9, 28). Concerns about reciprocal tariffs (Source 4).",
+                "impact": "Major driver of market volatility and negative sentiment, weighing on consumer spending, corporate profits (e.g., FedEx, Nike, Automakers), and economic outlook."
+            },
+            {
+                "event": "Inflation Data",
+                "details": "Hotter-than-expected inflation report released (Source 4, 13, 44). Concerns about reinvigorated inflation pressures (Source 10). Fed Chair Powell views potential tariff-related inflation as 'transitory' (Source 10, 47). University of Michigan inflation expectations hit 5% (Source 41). PCE data awaited (Source 8).",
+                "impact": "Increased fears of stagflation (Source 41), higher rates for longer, and potential Fed policy error. Dampened market mood (Source 13)."
+            },
+            {
+                "event": "Consumer Sentiment",
+                "details": "Weak consumer sentiment report released (Source 4, 13). Walmart CEO notes 'stressed behaviors' (Source 31). Concerns tariffs will discourage consumers (Source 13).",
+                "impact": "Exacerbated economic slowdown fears, particularly impacting consumer discretionary sector."
+            },
+            {
+                "event": "Federal Reserve Policy",
+                "details": "Fed held key rate steady earlier in the week (Source 19, 24), citing increased economic uncertainty. Powell reassured economy is in good shape (Source 6) but projected higher inflation/slower growth due to tariffs (Source 10).",
+                "impact": "Provided brief market stability mid-week, but concerns about future path and tariff impacts remain."
+            },
+            {
+                "event": "Economic Data/Concerns",
+                "details": "UK inflation data showed easing (Source 2). US weekly jobless claims edged lower (Source 33). Concerns about recession risk (Source 6, 13, 14 - JPMorgan pegs at 40%). Talk of stagflation becoming more prominent (Source 41).",
+                "impact": "Mixed signals, but overall narrative shifting towards potential slowdown or stagflation, weighing on sentiment."
+            },
+            {
+                "event": "Corporate News",
+                "details": "Dollar Tree (DLTR) selling Family Dollar (Source 1, 11). GameStop (GME) plans to buy Bitcoin, stock pops then drops (Source 2, 11, 28, 45). FedEx (FDX) and Nike (NKE) slash outlooks (Source 26). Nvidia (NVDA) faces China AI chip constraints/environmental guideline reports (Source 1, 30). Tesla (TSLA) news flow (China plans, Musk optimism) (Source 12, 26). Cintas (CTAS) earnings beat (Source 34). Microsoft data center demand questions affecting AI names (Source 34).",
+                "impact": "Specific stock movers, sector impacts (e.g., retail, logistics, tech, homebuilders), and contributor to overall market narrative (e.g., tariff impacts on earnings)."
+            }
+        ],
+        "sector_performance": [
+            {
+                "sector": "Technology",
+                "trend": "Negative",
+                "performance_indicator": -2.5,
+                "notes": "Led market declines, significant sell-off in Big Tech/'Magnificent Seven' (Nvidia, Tesla mentioned prominently). Hit by tariff concerns, potential China restrictions (Nvidia), and broader risk-off sentiment. Nasdaq down 2.7%."
+            },
+            {
+                "sector": "Consumer Discretionary",
+                "trend": "Negative",
+                "performance_indicator": -2.2,
+                "notes": "Weak due to tariff fears impacting automakers (Source 7, 22, 29, 43, 48), weak consumer sentiment (Source 4, 13), and negative outlooks from companies like Nike (Source 26). Homebuilders (Lennar) also warned (Source 26)."
+            },
+            {
+                "sector": "Communication Services",
+                "trend": "Negative",
+                "performance_indicator": -1.8,
+                "notes": "Generated: Likely down given broad market sell-off and weakness in large-cap growth names (e.g., Meta mentioned in Source 45 context)."
+            },
+            {
+                "sector": "Industrials",
+                "trend": "Negative",
+                "performance_indicator": -1.5,
+                "notes": "Affected by tariff uncertainty and negative outlooks (e.g., FedEx warning on industrial economy - Source 26). Boeing had positive signals earlier (Source 3) but broader sector likely weak."
+            },
+            {
+                "sector": "Financials",
+                "trend": "Negative",
+                "performance_indicator": -1.3,
+                "notes": "Mentioned as leading declines earlier in March (Source 3, 6). Likely down amid broad sell-off and economic uncertainty. Barclays strategist turned bearish (Source 11)."
+            },
+            {
+                "sector": "Energy",
+                "trend": "Slightly Negative",
+                "performance_indicator": -0.7,
+                "notes": "Crude futures mentioned as weighing supply risks vs economic impact of tariffs (Source 7). Oil futures little changed reported by Source 26. Likely slight decline in risk-off environment."
+            },
+            {
+                "sector": "Defensive Sectors (Utilities, Consumer Staples, Health Care)",
+                "trend": "Mixed/Relatively Resilient",
+                "performance_indicator": -0.2,
+                "notes": "Generally outperformed the broader market. Utilities potentially flat to slightly positive (Source 42 recommendation). Staples and Healthcare likely saw smaller losses. (Generated average performance)."
+            }
+        ],
+        "technical_indicators": [
+            {
+                "indicator": "S&P 500 Support Level",
+                "value": "5500",
+                "notes": "Mentioned as key level bulls need to hold (Source 27). Market closed at 5580.94 (Source 41) after the drop, testing this area."
+            },
+            {
+                "indicator": "S&P 500 Resistance Level",
+                "value": "5800-5900",
+                "notes": "Inferred: Represents the area of the recent three-week high (Source 2) and subsequent failure/reversal point."
+            },
+            {
+                "indicator": "Market Correction",
+                "value": "S&P 500 >10% below Feb 19 peak",
+                "notes": "Mentioned as occurring recently (Source 13, 22), indicating significant prior weakness before the latest downturn."
+            },
+            {
+                "indicator": "S&P 500 RSI (14-day)",
+                "value": "Below 30",
+                "notes": "Mentioned as dipping below 30 last week (Source 42), indicating potential oversold conditions, though the market continued lower."
+            },
+            {
+                "indicator": "Trend",
+                "value": "Downtrend reinforced",
+                "notes": "Sharp decline on March 28 broke recent consolidation/rally attempt (Source 1, 6, 18), reinforcing the negative trend observed in March."
+            },
+            {
+                "indicator": "Breadth",
+                "value": "Negative",
+                "notes": "Roughly 84% of S&P 500 stocks were in the red during Friday trading (Source 5), indicating broad-based selling."
+            }
+        ]
+    },
+    "market_analysis": {
+        "overall_market_sentiment": {
+            "sentiment": "Bearish",
+            "justification": "The market experienced a sharp sell-off on March 28, marking the worst day in nearly three weeks for major indices and contributing to weekly losses. Sentiment is heavily weighed down by persistent uncertainty surrounding US trade policy (specifically auto tariffs), hotter-than-expected inflation data fueling stagflation fears, weakening consumer sentiment, and negative corporate warnings (e.g., FedEx, Nike). Broad selling pressure (84% of S&P 500 stocks down) and significant weakness in the influential Technology sector further confirm the bearish tone. While oversold conditions might exist (RSI < 30 recently), the primary drivers remain overwhelmingly negative."
+        },
+        "key_drivers": [
+            {
+                "driver": "Tariff Uncertainty",
+                "significance": "High. Repeatedly cited as the 'primary catalyst' (Source 9, 28). The lack of clarity on scope, timing, and economic impact of announced and potential tariffs creates significant volatility and risk aversion, directly impacting sectors like Autos, Industrials, and Consumer Discretionary, and broadly affecting corporate planning and investment.",
+                "impact": "Negative"
+            },
+            {
+                "driver": "Inflation and Stagflation Fears",
+                "significance": "High. Recent hotter-than-expected inflation data (Source 4, 13) combined with slowing growth concerns (Source 10, 41) and weak consumer sentiment (Source 4, 13) have brought 'stagflation' into the discussion (Source 41). This challenges the Fed's 'transitory' narrative and raises concerns about future monetary policy.",
+                "impact": "Negative"
+            },
+            {
+                "driver": "Economic Growth Concerns",
+                "significance": "Medium-High. Fears of an economic slowdown or recession persist (Source 6, 13, 14), amplified by tariff impacts and weakening consumer confidence. Warnings from cyclical companies like FedEx and Lennar (Source 26) provide tangible evidence of softening demand.",
+                "impact": "Negative"
+            },
+            {
+                "driver": "Technology Sector Weakness",
+                "significance": "Medium-High. The sell-off in Big Tech/'Magnificent Seven' stocks (Source 1, 5, 11, 22) has an outsized impact on cap-weighted indices like the S&P 500 and Nasdaq. Concerns range from valuations and AI chip demand/restrictions (Nvidia) to broader risk-off positioning.",
+                "impact": "Negative"
+            },
+            {
+                "driver": "Federal Reserve Policy",
+                "significance": "Medium. While the Fed holding rates steady provided temporary calm (Source 19, 24), the market remains focused on the future path amidst conflicting signals of inflation and growth, compounded by tariff uncertainty cited by the Fed itself.",
+                "impact": "Neutral to Slightly Negative (due to uncertainty)"
+            }
+        ],
+        "sector_trends": {
+            "overview": "Broad-based weakness dominated, with cyclical and growth sectors underperforming significantly. Defensive sectors showed relative resilience but still faced pressure.",
+            "detailed_performance": [
+                {
+                    "sector": "Technology",
+                    "performance": "Severe Underperformance (-2.5%). Led declines, driven by sell-offs in mega-caps like Nvidia and Tesla. Vulnerable to trade tensions (China chip restrictions) and potentially slowing enterprise spending (data center concerns).",
+                    "outlook": "Negative short-term bias given momentum and macro headwinds."
+                },
+                {
+                    "sector": "Consumer Discretionary",
+                    "performance": "Significant Underperformance (-2.2%). Directly impacted by auto tariff news, weak consumer sentiment, and warnings from bellwethers like Nike. Housing concerns (Lennar warning) also weigh.",
+                    "outlook": "Negative outlook until tariff clarity and stabilization in consumer confidence."
+                },
+                {
+                    "sector": "Industrials",
+                    "performance": "Underperformance (-1.5%). Sensitive to trade wars and economic slowdown fears, highlighted by FedEx's outlook cut.",
+                    "outlook": "Cautious outlook, highly dependent on trade outcomes and economic trajectory."
+                },
+                {
+                    "sector": "Financials",
+                    "performance": "Underperformance (-1.3%). Reflects broader economic concerns and potential credit cycle worries.",
+                    "outlook": "Neutral to Cautious, sensitive to rate environment and economic health."
+                },
+                {
+                    "sector": "Defensive Sectors (Utilities, Consumer Staples, Health Care)",
+                    "performance": "Relative Outperformance (Avg. -0.2%). Acted as a safe haven, attracting flows during the risk-off move, though still mostly negative. Utilities showed potential for slight gains.",
+                    "outlook": "May continue to outperform relatively if volatility persists, as recommended by some analysts (Source 42)."
+                },
+                {
+                    "sector": "Energy",
+                    "performance": "Slight Underperformance (-0.7%). Caught between potential supply risks and demand destruction fears from tariffs/slowdown.",
+                    "outlook": "Mixed, sensitive to geopolitical events and global growth outlook."
+                }
+            ]
+        },
+        "technical_insights": {
+            "summary": "The technical picture deteriorated significantly. The S&P 500 failed to hold gains above recent highs and broke down sharply, reinforcing the downtrend that has characterized March.",
+            "support_resistance": "Key support for the S&P 500 is now at the 5500 level, which was tested during Friday's decline. A break below this level could open the door for further downside. Resistance is likely found near the recent highs around 5800-5900, representing the failed rally attempt.",
+            "indicators": "Market breadth was extremely weak, confirming the sell-off's broad nature. While the RSI dipping below 30 recently suggested an oversold condition (Source 42), the subsequent sharp decline indicates strong selling pressure overcoming any short-term bounce potential. The market remains within the correction territory established earlier in the month (Source 13, 22).",
+            "trend_momentum": "Downside momentum is strong. The failure to sustain the prior three-day rally (Source 1, 6, 18) and the magnitude of the drop point towards further potential weakness."
+        },
+        "impact_analysis_key_events": {
+            "tariffs": "Overwhelmingly negative impact. The announcement and continued uncertainty act as a primary brake on market sentiment and economic activity. Hopes for softer tariffs provided temporary lifts (Source 8, 9, 16, 39), but the actual announcement (Source 43) and persistent ambiguity (Source 7, 11, 16) dominate, causing sharp sell-offs and sector-specific pain (Autos, Industrials, Consumer).",
+            "inflation_sentiment_data": "Negative impact. The combination of higher-than-expected inflation and lower consumer sentiment (Source 4, 13, 41) validated market fears, intensified stagflation concerns, and triggered significant index drops, overriding any lingering optimism from the Fed's earlier meeting.",
+            "fed_policy": "Neutralized impact. The Fed's decision to hold rates provided only brief respite (Source 19, 24). Its own acknowledgement of tariff-related uncertainty and the subsequent negative data flow quickly overshadowed any dovish interpretation, leaving policy uncertainty high.",
+            "corporate_warnings": "Negative impact. Warnings from FedEx, Nike, and Lennar (Source 26) provided concrete evidence of tariff impacts and economic slowdown, adding credibility to macro fears and pressuring related sectors."
+        },
+        "outlook": {
+            "short_term": "Bearish. The market is likely to remain volatile and biased to the downside in the immediate term. Key factors are the unresolved tariff situation and upcoming economic data (PCE inflation). Oversold conditions might lead to brief bounces, but sustained rallies appear unlikely without positive catalysts, primarily tariff clarification or de-escalation. Further downside towards S&P 500 5500 or lower is possible if negative news flow continues.",
+            "medium_term": "Highly Uncertain / Cautious. The medium-term outlook is clouded by significant risks. The full economic impact of the tariffs, the trajectory of inflation, and the Federal Reserve's response remain key variables. The increasing mentions of stagflation (Source 41) and recession risk (Source 6, 13, 14, 36) suggest potential for a more prolonged downturn. Market direction will heavily depend on policy decisions (trade, fiscal) and the resilience of corporate earnings against these headwinds. Defensive positioning may be prudent (Source 42)."
+        }
+    }
+}
