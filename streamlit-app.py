@@ -2,11 +2,12 @@ import time
 import requests
 import streamlit as st
 
-st.title("Streaming from FastAPI")
-API_URL = "http://127.0.0.1:8000/stream"
+st.title("S&P 500 Research Report")
+API_URL = "http://127.0.0.1:8000/report"
 
-def stream_data():
-    response = requests.get(API_URL, stream=True)
+def stream_data(mode):
+    body = {'mode':mode}
+    response = requests.get(API_URL, json=body, stream=True)
 
     if response.status_code == 200:
         text_container = st.empty()  # Create a container for updating text
@@ -14,7 +15,7 @@ def stream_data():
 
         for chunk in response.iter_lines():
             if chunk:
-                chunk_text = chunk.decode("utf-8").strip()
+                chunk_text = chunk.decode("utf-8")
 
                 # Ensure paragraph breaks are maintained
                 chunk_text = chunk_text.replace("\n", "\n\n")  
@@ -23,9 +24,19 @@ def stream_data():
                 accumulated_lines.append(chunk_text)
 
                 # Update Streamlit container with joined text
-                text_container.write("\n".join(accumulated_lines))  
+                text_container.markdown("\n".join(accumulated_lines))  
 
                 time.sleep(0.02)  # Simulate streaming delay
 
+def batch_data(mode):
+    body = {'mode':mode}
+    response = requests.get(API_URL, json=body)
+    if response.status_code == 200:
+        markdown = response.json()['markdown']
+        st.write(markdown)
+
+mode = st.selectbox("Select Mode:", ["Static", "Realtime"], index=0)
+
 if st.button("Stream LLM Response"):
-    stream_data()
+    # stream_data()
+    batch_data(mode)

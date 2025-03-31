@@ -19,9 +19,8 @@ def llm(model, system_prompt, user_prompt, is_json=False):
         model=model,
         response_format={ "type": "json_object" if is_json else "text" },
         messages=messages,
-        temperature=0.7,
-        max_tokens=10000
-    )
+        temperature=0.7
+        )
     return {'id':response.id,
             'prompt': user_prompt, 
             'answer': response.choices[0].message.content,

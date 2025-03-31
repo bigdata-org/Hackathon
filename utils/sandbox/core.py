@@ -12,8 +12,6 @@ load_dotenv()
 
 def python_sandbox(chart_metadata):
     chart_data = []
-    with open('local/charts.json', 'r') as f:
-        chart_metadata = json.loads(f.read())
     for _ in chart_metadata:
         try:
             write_to_csv(_['SQL'].strip(';'))
@@ -24,7 +22,6 @@ def python_sandbox(chart_metadata):
             result = llm(model='gemini/gemini-2.5-pro-exp-03-25', system_prompt=python_code_generation_prompt, user_prompt=top_5_data, is_json=True)['answer']
             code_to_run = json.loads(result)["code_to_run"] if isinstance(result,str) else result["code_to_run"]
             execution = sbx.run_code(code_to_run)
-            print(execution)
             img_bytes = base64.b64decode(execution.results[0].text)
             img_url=upload_png_to_s3(get_s3_client(), 'charts',img_bytes)
             chart_data.append( {'title' : _['Title'], 'description' : _['Description'], 'chart_url': img_url })

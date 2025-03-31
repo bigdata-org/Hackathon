@@ -161,6 +161,9 @@ def prompt_extract_and_analyze(consolidated_text):
     4. Technical insights and support/resistance levels
     5. Impact analysis of key events
     6. Short and medium-term outlook
+    
+    PART3: CITATIONS
+    Based on the above analaysis provide a list of citations for the website name and title
 
     Text sources to analyze:
     {consolidated_text}
@@ -168,66 +171,93 @@ def prompt_extract_and_analyze(consolidated_text):
     Respond with a detailed JSON object with these two main sections:
     1. "extracted_data": Data extracted from sources
     2. "market_analysis": Your analysis of the market situation
+    3. "citations": Relevant WEBPAGE_TITLE and WEBPAGE_URL
 
     For ANY missing information, create realistic, plausible market data that would be appropriate for
     a professional market report. The data should be internally consistent and realistic.
     
-    Format your response as valid JSON within ```json ``` code blocks.
+    strictly return the result as a json object
     """
 
-def generate_multiple_sections(extracted_data_str, market_analysis_str, target_sections):
-    """
-    Returns the prompt for generating multiple report sections
-    
-    Args:
-        extracted_data_str (str): JSON string of extracted data
-        market_analysis_str (str): JSON string of market analysis
-        target_sections (list): List of section names
-        
-    Returns:
-        str: The formatted prompt
-    """
-    return f"""
-    You are a senior financial analyst writing a comprehensive market report for research purposes (A research report).
-    
-    Based on this market data:
-    
-    Extracted Data:
-    {extracted_data_str}
-    
-    Market Analysis:
-    {market_analysis_str}
-    
-    Generate the following report sections:
-    {', '.join(target_sections)}
-    
-    Each section should be extremely detailed and thorough (at least 800-1000 words per section). 
-    Include realistic market data, analysis, and commentary throughout. 
+sections = [
+    "EXECUTIVE SUMMARY",
+    "MARKET OVERVIEW",
+    "ECONOMIC CONTEXT",
+    "GEOPOLITICAL FACTORS",
+    "SECTOR PERFORMANCE",
+    "TOP PERFORMERS & LAGGARDS",
+    "TECHNICAL ANALYSIS",
+    "MARKET THEMES & CATALYSTS",
+    "CORPORATE DEVELOPMENTS",
+    "MARKET OUTLOOK",
+    "EXPERT PERSPECTIVES",
+    "APPENDIX: DATA TABLES & CHARTS"
+]
 
-    **IMPORTANT GUIDELINES:**
+def research_report_prompt(extracted_data_str, market_analysis_str, chart_data_str, target_sections=sections):
+ return f"""
+You are a senior financial analyst writing a comprehensive market research report for S&P 500. 
+Do not disclose any information about who wrote this report or for whom this report is for.
 
-    1. **Markdown Formatting**: Use **proper Markdown formatting**:
-       - Use `##` for section headers (e.g., `## EXECUTIVE SUMMARY`).
-       - Use `-` for bullet points, and `**bold**` or `_italic_` for emphasis.
-       - Separate paragraphs with **two line breaks (`\n\n`)**.
-       - Use subheadings with `###` for more detailed subsections.
-    
-    2. **Content Quality**:
-       - For any missing information, invent **realistic, plausible market details**.
-       - Include **specific numbers, percentages, price points**, and **analyst quotes** where relevant.
-       - Focus on creating **professional, insightful analysis** that would be suitable for **professional investors**.
-       - Avoid generic or boilerplate language—make sure the report reads like it was written by an **experienced financial analyst**.
+### Report Requirements:
+- The report must be **extremely detailed**, suitable for professional investors.
+- Each section should be **800-1000 words** with deep analysis, financial data, and insights.
+- **Markdown formatting** should be used properly:
+  - Use `##` for section headers (e.g., `## EXECUTIVE SUMMARY`).
+  - Use `-` for bullet points and `**bold**` or `_italic_` for emphasis.
+  - Ensure clear paragraph breaks with `\n\n`.
+  - Use subheadings (`###`) where necessary.
 
-    3. **Specific Sections**:
-       - **SECTOR PERFORMANCE**: Analyze **all 11 S&P 500 sectors** in detail.
-       - **TECHNICAL ANALYSIS**: Include specific **support/resistance levels**, **moving averages**, and **indicators**.
-       - **TOP PERFORMERS & LAGGARDS**: Analyze at least **10 companies** (5 top performers, 5 laggards) with detailed context.
-       - **EXPERT PERSPECTIVES**: Provide **realistic quotes** from **fictional analysts** with company affiliations.
-       
-    The content must be **extremely detailed** and **comprehensive**, suitable for a **15-16 page printed report**. Focus on **quality analysis** over generic statements.
+### Market Data:
+#### Extracted Data:
+{extracted_data_str}
 
-    Be sure to structure the content logically with **clear headings**, **subheadings**, and **breaks between sections** for readability.
-    """
+#### Market Analysis:
+{market_analysis_str}
+
+### Chart Data:
+The following charts provide key insights into market trends. **You must integrate them at appropriate positions** within the report sections where they provide the most value. Do not list them separately—incorporate them within the relevant analysis.
+
+{chart_data_str}
+
+### **Guidelines for Chart Usage:**
+- **Do NOT place all charts in one section.** Instead, include them within relevant parts of the report.
+- Use **Markdown image embedding**:  
+  - `![Chart Title](Chart URL)`
+- Provide a **brief explanation** before each chart, summarizing its significance.
+- Ensure the report flows naturally with the charts acting as **visual reinforcement** of key points.
+
+### **Specific Section Instructions:**
+- **SECTOR PERFORMANCE**:
+  - Analyze all **11 S&P 500 sectors** in detail.
+  - Use charts that provide insights into sector movements, volatility, or trends.
+- **TECHNICAL ANALYSIS**:
+  - Include **support/resistance levels**, **moving averages**, and **trend indicators**.
+  - Charts showing moving averages, volatility, and rolling highs/lows should be included.
+- **TOP PERFORMERS & LAGGARDS**:
+  - Select **at least 10 companies** (5 top performers, 5 laggards) and analyze their market movements.
+- **EXPERT PERSPECTIVES**:
+  - Generate **realistic quotes** from **fictional financial analysts**, ensuring credibility.
+  - Analysts should reference **market data and charts** where applicable.
+
+### **Content Expectations:**
+- If any data is missing, **invent realistic financial figures** based on plausible trends.
+- Include **specific price levels, index points, analyst opinions, and macroeconomic factors**.
+- Write in the tone of a **seasoned financial analyst**, avoiding vague statements.
+
+Ensure that the report is structured logically, **reads naturally**, and integrates all elements seamlessly.
+
+---
+
+## **Citations & References**
+At the end of the report, **include a properly formatted citations section** with all sources from the **Extracted Data**.  
+
+Format citations using:
+- `### References`
+- List sources using `- [Source Name](Source URL)`, if available.
+
+If a source is missing a URL, just list the name properly formatted.
+"""
 
 def format_section_content(section_name, content):
     """

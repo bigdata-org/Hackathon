@@ -9,8 +9,8 @@ from utils.litellm.core import allm, llm
 from langchain_core.runnables import RunnablePassthrough, RunnableLambda
 from langgraph.graph import StateGraph, END, START
 from langchain_core.tools import Tool
-from utils.helper import prompt_extract_and_analyze, generate_multiple_sections
-
+from utils.helper import prompt_extract_and_analyze, research_report_prompt
+from utils.sandbox.core import python_sandbox
 # Load environment variables
 load_dotenv()
 
@@ -25,21 +25,22 @@ logger = logging.getLogger(__name__)
 class AgentState(TypedDict):
     input_data: Annotated[Dict, "JSON input data with search results"]
     extracted_data: Annotated[Optional[Dict], "Consolidated extracted and analyzed data"]
-    report_content: Annotated[Optional[str], "The final market report"]
+    chart_data : Annotated[Optional[Dict], "Sandbox executed chart data"]
+    report_context: Annotated[Optional[str], "The final market report"]
     error: Annotated[Optional[str], "Error message if any"]
-
-def load_json_from_file(file_path):
-    """Load JSON data from file"""
-    try:
-        with open(file_path, 'r', encoding='utf-8') as file:
-            return json.load(file)
-    except Exception as e:
-        logger.error(f"Error loading JSON from file: {str(e)}")
-        return None
 
 def extract_and_analyze_data(json_data: Dict) -> Dict:
     """Combined extraction and analysis in one API call - works directly with results array"""
     # Prepare consolidated text from all sources in the results array
+    fallback_data = {
+            "extracted_data": {
+                "date": datetime.now().strftime("%B %d, %Y"),
+                "market_movements": {"Error": "Invalid input data format"}
+            },
+            "market_analysis": {
+                "sentiment": "unknown"
+            }
+        }
     consolidated_text = ""
     
     if "results" in json_data and isinstance(json_data["results"], list):
@@ -53,97 +54,54 @@ def extract_and_analyze_data(json_data: Dict) -> Dict:
             consolidated_text += f"Source {i} - {title}:\n{content}\n\n"
     else:
         logger.warning("Input data doesn't have expected 'results' array structure")
-        return {
-            "extracted_data": {
-                "date": datetime.now().strftime("%B %d, %Y"),
-                "market_movements": {"Error": "Invalid input data format"}
-            },
-            "market_analysis": {
-                "sentiment": "unknown"
-            }
-        }
+        return fallback_data
     
     # Combined extraction and analysis prompt
     prompt = prompt_extract_and_analyze(consolidated_text)
     
-    response = llm(model='gemini/gemini-2.5-pro-exp-03-25', system_prompt=prompt, user_prompt='Extract and analyze for the above context')['answer']
-    
+    llm_ready_data = llm(model='openai/gpt-4o-mini', system_prompt=prompt, user_prompt='Extract and analyze for the above context', is_json=True)['answer']
     try:
-        # Try to extract JSON from the response
-        json_match = re.search(r"```json\s*(.*?)\s*```", response, re.DOTALL)
-        if json_match:
-            return json.loads(json_match.group(1))
-        
-        # Try other JSON extraction methods
-        json_match_alt = re.search(r"\{.*\}", response, re.DOTALL)
-        if json_match_alt:
-            return json.loads(json_match_alt.group(0))
-            
-        # If still can't parse, return basic structure
-        logger.warning("Could not parse JSON from response")
-        return {
-            "extracted_data": {
-                "date": datetime.now().strftime("%B %d, %Y"),
-                "market_movements": {"Error": "Could not extract market movements"}
-            },
-            "market_analysis": {
-                "sentiment": "unknown"
-            }
-        }
+        logger.info("=====PREPROCESSING ENDED=====")
+        return llm_ready_data
     except Exception as e:
         logger.error(f"Error parsing response: {str(e)}")
-        raise
+        return fallback_data
 
-async def generate_report_with_streaming(data: Dict):
-    """Generate full market report with streaming output to console only"""
-        
-    # Define all sections
-    sections = [
-        "EXECUTIVE SUMMARY",
-        "MARKET OVERVIEW",
-        "ECONOMIC CONTEXT",
-        "GEOPOLITICAL FACTORS",
-        "SECTOR PERFORMANCE",
-        "TOP PERFORMERS & LAGGARDS",
-        "TECHNICAL ANALYSIS",
-        "MARKET THEMES & CATALYSTS",
-        "CORPORATE DEVELOPMENTS",
-        "MARKET OUTLOOK",
-        "EXPERT PERSPECTIVES",
-        "APPENDIX: DATA TABLES & CHARTS"
-    ]
-    
-    # Extract relevant market data
-    extracted_data_str = json.dumps(data.get('extracted_data', {}), indent=2)
-    market_analysis_str = json.dumps(data.get('market_analysis', {}), indent=2)
-    
-    # Create prompt for generating the full report
-    prompt = generate_multiple_sections(extracted_data_str, market_analysis_str, sections)
-    
-    try:       
-        async for chunk in allm(model="gemini/gemini-2.5-pro-exp-03-25", system_prompt=prompt, user_prompt='Generate the report as per the provided instructions'):
-            logger.info('\n' in chunk)
-            yield chunk  # Ensure paragraphs are correctly spaced
-
+async def generate_report_with_streaming(context):
+    """Generate full market report with streaming output to console only"""    
+    try: 
+        logger.info("=====REPORT GENERATION STARTED =====")      
+        async for chunk in allm(model="gemini/gemini-2.5-pro-exp-03-25", system_prompt=context, user_prompt='Generate the report as per the provided instructions'):
+            yield chunk  
     except Exception as e:
         yield f"Error generating report: {str(e)}\n\n"
+
+def generate_report_without_streaming(context):
+    return llm(model="gemini/gemini-2.5-pro-exp-03-25", system_prompt=context, user_prompt='Generate the S&P research report as per the provided instructions')['answer']
 
 # Define node operations for LangGraph
 def extract_data(state: AgentState) -> AgentState:
     """Extract and analyze data directly from input JSON"""
+    logger.info("=====PREPROCESSING STARTED=====")
     try:
         json_data = state.get("input_data", {})
         result = extract_and_analyze_data(json_data)
-        return {"extracted_data": result}
+        return {"extracted_data": json.loads(result)}
     except Exception as e:
         return {"error": f"Error extracting data: {str(e)}"}
 
-def generate_report(state: AgentState) -> AgentState:
+def consolidate_context(state: AgentState) -> AgentState:
     """Generate the full market report with streaming to console"""
+    logger.info("=====CONSOLIDATING REPORT CONTEXT=====")
     try:
         data = state.get("extracted_data", {})
-        # result = generate_report_with_streaming(data)
-        return {"report_content": data}
+        logger.info(f'picking check {str(data)}')
+        extracted_data_str = json.dumps(data.get('extracted_data', 'No data extracted, skip data extraction analysis'))
+        market_analysis_str = json.dumps(data.get('market_analysis', 'No market analysis data found, skip market analysis'))
+        chart_data_str = state.get('chart_data', 'No chart data found, skip the chart analysis')
+        # Create prompt for generating the full report
+        context = research_report_prompt(extracted_data_str, market_analysis_str, chart_data_str)
+        return {"report_context": context}
     except Exception as e:
         return {"error": f"Error generating report: {str(e)}"}
 
@@ -154,14 +112,14 @@ def check_for_errors(state: AgentState) -> str:
         return END
     return "continue"
 
-def router(state: AgentState) -> str:
-    """Decide the next step in the process"""
-    if "extracted_data" not in state or not state["extracted_data"]:
-        return "extract_data"
-    elif "report_content" not in state:
-        return "generate_report"
-    else:
-        return END
+def generate_charts(state: AgentState):
+    logger.info("=====CHART TOOL=====")
+    with open('local/charts.json', 'r') as f:
+        chart_metadata = json.loads(f.read())
+    chart_data = python_sandbox(chart_metadata)
+    if chart_data:
+        return {"chart_data" : chart_data}
+    return {"error": f"Error generating chart"}
 
 # Create the LangGraph
 def create_market_report_agent():
@@ -170,42 +128,42 @@ def create_market_report_agent():
     workflow = StateGraph(AgentState)
     
     # Add nodes
-    workflow.add_node("extract_data", extract_data)
-    workflow.add_node("generate_report", generate_report)
+    workflow.add_node("web", extract_data)
+    workflow.add_node("chart", generate_charts)
+    workflow.add_node("aggregator", consolidate_context)
     
     # Add edges
-    workflow.add_conditional_edges(START, router)
-    workflow.add_edge("extract_data", "generate_report")
-    workflow.add_edge("generate_report", END)
+    workflow.add_edge(START, "web")
+    workflow.add_edge(START, "chart")
+    workflow.add_edge(["web", "chart"], "aggregator")
+    workflow.add_edge("aggregator", END)
     
     # Add error checking
-    workflow.add_conditional_edges("extract_data", check_for_errors)
-    workflow.add_conditional_edges("generate_report", check_for_errors)
+    workflow.add_conditional_edges("web", check_for_errors)
+    workflow.add_conditional_edges("chart", check_for_errors)
     
     # Compile the graph
     return workflow.compile()
 
 def entry_point(json_data):
-    """Process a search results file using the LangGraph agent with console streaming"""
-    logger.info("===== S&P 500 MARKET REPORT GENERATOR (WITH CONSOLE STREAMING) =====")
-    logger.info("Starting market report generation with LangGraph agent")
-    
+    """Process a search results file using the LangGraph agent with console streaming"""    
     # Load JSON data from file
+    logger.info("=====ENTRY POINT=====")
     if not json_data:
-        return "Error: Could not load JSON data from file"
+        logger.error("Error: Could not load JSON data from file")
+        return None
     
     # Create and run the agent
     agent = create_market_report_agent()
     result = agent.invoke({
         "input_data": json_data,
         "extracted_data": None,
-        "report_content": None,
+        "chart_data": None, 
+        "report_context": None,
         "error": None
     })
     
     if "error" in result and result["error"]:
         logger.error(f"Agent error: {result['error']}")
-        return f"Error: {result['error']}"
-    
-    logger.info("===== REPORT GENERATION COMPLETE =====")
-    return result.get("report_content", None)
+        return None
+    return result.get("report_context", None)
