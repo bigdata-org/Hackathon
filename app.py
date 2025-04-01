@@ -16,12 +16,8 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
-class modeModel(BaseModel):
-    mode: str
-
 @app.get("/report")
-async def report(request: modeModel):
-    mode = request.mode
+async def report(mode: str):
     if mode=='Static':
         return {'markdown': read_markdown_from_s3(get_s3_client())}
     else: 

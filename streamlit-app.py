@@ -6,7 +6,7 @@ st.title("S&P 500 Research Report")
 API_URL = "http://127.0.0.1:8000/report"
 
 def stream_data(mode):
-    body = {'mode':mode}
+    params = {'mode':mode}
     response = requests.get(API_URL, json=body, stream=True)
 
     if response.status_code == 200:
@@ -29,8 +29,8 @@ def stream_data(mode):
                 time.sleep(0.02)  # Simulate streaming delay
 
 def batch_data(mode):
-    body = {'mode':mode}
-    response = requests.get(API_URL, json=body)
+    params = {'mode':mode}
+    response = requests.get(API_URL, params=params)
     if response.status_code == 200:
         markdown = response.json()['markdown']
         st.write(markdown)
