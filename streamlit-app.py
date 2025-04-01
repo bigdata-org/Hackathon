@@ -4,11 +4,11 @@ import requests
 import streamlit as st
 
 st.title("S&P 500 Research Report")
-API_URL = "http://127.0.0.1:8000/report"
+API_URL = "https://sp500-ra-451496260635.us-central1.run.app/report"
 
 def stream_data(mode):
     params = {'mode':mode}
-    response = requests.get(API_URL, json=body, stream=True)
+    response = requests.get(API_URL, params=params, stream=True)
 
     if response.status_code == 200:
         text_container = st.empty()  # Create a container for updating text

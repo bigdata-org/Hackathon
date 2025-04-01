@@ -6,6 +6,7 @@ numpy
 openai
 pandas
 plotly
+kaleido
 pydantic
 python-dotenv
 snowflake-connector-python

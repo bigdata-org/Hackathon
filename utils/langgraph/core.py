@@ -117,6 +117,8 @@ def generate_charts(state: AgentState):
     with open('local/charts.json', 'r') as f:
         chart_metadata = json.loads(f.read())
     chart_data = python_sandbox(chart_metadata)
+    logger.info('=========================')
+    logger.info(str(chart_data))
     if chart_data:
         return {"chart_data" : chart_data}
     return {"error": f"Error generating chart"}

@@ -8,7 +8,13 @@ from utils.litellm.core import llm
 from utils.helper import sql_query_generation_prompt, python_code_generation_prompt
 from utils.s3.core import upload_png_to_s3, get_s3_client
 from utils.snowflake.core import write_to_csv
-load_dotenv()
+import logging
+# Configure logging
+logging.basicConfig(
+    format="%(asctime)s - %(message)s",
+    level=logging.INFO
+)
+logger = logging.getLogger(__name__)
 
 def python_sandbox(chart_metadata):
     chart_data = []
@@ -25,7 +31,7 @@ def python_sandbox(chart_metadata):
             img_bytes = base64.b64decode(execution.results[0].text)
             img_url=upload_png_to_s3(get_s3_client(), 'charts',img_bytes)
             chart_data.append( {'title' : _['Title'], 'description' : _['Description'], 'chart_url': img_url })
-        except:
-            pass
+        except Exception as e:
+            logging.info('chart failed because'+str(e))
     return chart_data
 
