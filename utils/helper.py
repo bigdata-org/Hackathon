@@ -199,7 +199,7 @@ def research_report_prompt(extracted_data_str, market_analysis_str, chart_data_s
 You are a senior financial analyst writing a comprehensive market research report for S&P 500. 
 Do not disclose any information about who wrote this report or for whom this report is for.
 
-Start the report with a proper bold heading like - research report for S&P 500 
+Start the report with a proper bold heading like - # **research report for S&P 500** 
 
 ### Report Requirements:
 - The report must be **extremely detailed**, suitable for professional investors.

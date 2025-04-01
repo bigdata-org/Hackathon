@@ -24,6 +24,6 @@ async def report(mode: str):
         with open('links.json', 'r', encoding='utf-8') as file:
             links_data = json.load(file)
         llm_ready_data = entry_point(links_data)
-        with open('llm_ready_data.json', 'w') as file:
-            file.write(json.dumps(llm_ready_data))
+        # with open('llm_ready_data.json', 'w') as file:
+        #     file.write(json.dumps(llm_ready_data))
         return {'markdown': generate_report_without_streaming(llm_ready_data)}

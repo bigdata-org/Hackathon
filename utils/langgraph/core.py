@@ -95,7 +95,6 @@ def consolidate_context(state: AgentState) -> AgentState:
     logger.info("=====CONSOLIDATING REPORT CONTEXT=====")
     try:
         data = state.get("extracted_data", {})
-        logger.info(f'picking check {str(data)}')
         extracted_data_str = json.dumps(data.get('extracted_data', 'No data extracted, skip data extraction analysis'))
         market_analysis_str = json.dumps(data.get('market_analysis', 'No market analysis data found, skip market analysis'))
         chart_data_str = state.get('chart_data', 'No chart data found, skip the chart analysis')
@@ -166,4 +165,5 @@ def entry_point(json_data):
     if "error" in result and result["error"]:
         logger.error(f"Agent error: {result['error']}")
         return None
+    logger.info(f'im going to return {result.get("report_context", None)}')
     return result.get("report_context", None)

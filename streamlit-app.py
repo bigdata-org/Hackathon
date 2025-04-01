@@ -1,4 +1,5 @@
 import time
+import json
 import requests
 import streamlit as st
 
@@ -32,7 +33,7 @@ def batch_data(mode):
     params = {'mode':mode}
     response = requests.get(API_URL, params=params)
     if response.status_code == 200:
-        markdown = response.json()['markdown']
+        markdown = json.loads(response.content.decode("utf-8"))['markdown']
         st.write(markdown)
 
 mode = st.selectbox("Select Mode:", ["Static", "Realtime"], index=0)
