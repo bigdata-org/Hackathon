@@ -208,7 +208,7 @@ Start the report with a proper bold heading like - # **research report for S&P 5
   - Use `##` for section headers (e.g., `## EXECUTIVE SUMMARY`).
   - Use `-` for bullet points and `**bold**` or `_italic_` for emphasis.
   - Ensure clear paragraph breaks with `\n\n`.
-  - Use subheadings (`###`) where necessary.
+  - Use subheadings (`###`) where necessary.``
 
 ### Market Data:
 #### Extracted Data:

@@ -77,7 +77,8 @@ async def generate_report_with_streaming(context):
         yield f"Error generating report: {str(e)}\n\n"
 
 def generate_report_without_streaming(context):
-    return llm(model="gemini/gemini-2.5-pro-exp-03-25", system_prompt=context, user_prompt='Generate the S&P research report as per the provided instructions')['answer']
+    logger.log('context')
+    return llm(model="gemini/gemini-2.5-pro-exp-03-25", system_prompt='Generate the S&P research report as per the provided instructions', user_prompt=context)['answer']
 
 # Define node operations for LangGraph
 def extract_data(state: AgentState) -> AgentState:
