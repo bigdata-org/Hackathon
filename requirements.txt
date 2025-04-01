@@ -9,7 +9,7 @@ plotly
 kaleido
 pydantic
 python-dotenv
-snowflake-connector-python
+snowflake-connector-python[pandas]
 uvicorn
 fastapi
 starlette
