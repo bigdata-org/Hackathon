@@ -59,7 +59,7 @@ def extract_and_analyze_data(json_data: Dict) -> Dict:
     # Combined extraction and analysis prompt
     prompt = prompt_extract_and_analyze(consolidated_text)
     
-    llm_ready_data = llm(model='openai/gpt-4o-mini', system_prompt=prompt, user_prompt='Extract and analyze for the above context', is_json=True)['answer']
+    llm_ready_data = llm(model='gemini/gemini-2.5-pro-exp-03-25', system_prompt=prompt, user_prompt='Extract and analyze for the above context', is_json=True)['answer']
     try:
         logger.info("=====PREPROCESSING ENDED=====")
         return llm_ready_data
@@ -77,7 +77,6 @@ async def generate_report_with_streaming(context):
         yield f"Error generating report: {str(e)}\n\n"
 
 def generate_report_without_streaming(context):
-    logger.log('context')
     return llm(model="gemini/gemini-2.5-pro-exp-03-25", system_prompt='Generate the S&P research report as per the provided instructions', user_prompt=context)['answer']
 
 # Define node operations for LangGraph
